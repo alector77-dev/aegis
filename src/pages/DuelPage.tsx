@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./DuelPage.css";
 import CalculatorModal from "../components/CalculatorModal";
@@ -74,6 +74,27 @@ export default function DuelPage({
   duelLog,
   setDuelLog,
 }: DuelPageProps) {
+  useEffect(() => {
+    const handleResize = () => {
+      document.body.style.display = "none";
+
+      void document.body.offsetHeight;
+
+      document.body.style.display = "";
+    };
+
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("orientationchange", handleResize);
+
+    // also run once shortly after mount
+    setTimeout(handleResize, 100);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("orientationchange", handleResize);
+    };
+  }, []);
+  
   const [selectedPlayer, setSelectedPlayer] = useState<1 | 2 | null>(null);
 
   const [calculatorVisible, setCalculatorVisible] = useState(false);

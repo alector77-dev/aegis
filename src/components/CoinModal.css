@@ -1,6 +1,6 @@
 .coin-modal {
   width: 300px;
-  height: 300px;
+  min-height: 300px;
 
   background: #1a1f2b;
 
@@ -27,7 +27,8 @@
 
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
+  margin-top: 12px;
 }
 
 .coin-image {
@@ -70,7 +71,7 @@
 
   border-radius: 16px;
 
-  padding: 18px 0;
+  padding: 12px 0;
 
   color: white;
 

@@ -12,7 +12,7 @@ type DiceFace = 1 | 2 | 3 | 4 | 5 | 6;
 
 export default function DiceModal() {
   const [diceText, setDiceText] =
-    useState("Press Roll");
+    useState("Ready");
 
   const [diceFace, setDiceFace] =
     useState<DiceFace>(1);

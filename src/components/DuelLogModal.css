@@ -1,0 +1,70 @@
+.duel-log-modal {
+  width: 60vw;
+  height: 70vh;
+
+  max-width: 900px;
+  min-width: 320px;
+
+  background: #1a1f2b;
+
+  border-radius: 20px;
+
+  border: 2px solid #58627a;
+
+  box-shadow: 0 0 24px rgba(138, 160, 255, 0.25);
+
+  padding: 16px;
+
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.duel-log-scroll {
+  width: 100%;
+  height: 100%;
+
+  overflow-y: auto;
+
+  padding-bottom: 12px;
+}
+
+.duel-log-entry {
+  background: #242b3d;
+
+  border-radius: 12px;
+
+  border: 1px solid #39445f;
+
+  padding: 12px 14px;
+
+  margin-bottom: 12px;
+}
+
+.duel-log-player {
+  font-size: 18px;
+  font-weight: 700;
+
+  margin-bottom: 4px;
+}
+
+.player1-text {
+  color: #ff6b6b;
+}
+
+.player2-text {
+  color: #7da8ff;
+}
+
+.duel-log-details {
+  color: white;
+
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.undone-text {
+  text-decoration: line-through;
+  opacity: 0.45;
+}

@@ -1,0 +1,85 @@
+.reset-modal {
+  width: 400px;
+  max-width: 90vw;
+
+  background: #1a1f2b;
+
+  border-radius: 20px;
+
+  border: 2px solid #58627a;
+
+  box-shadow: 0 0 24px rgba(138, 160, 255, 0.25);
+
+  padding: 24px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.reset-title {
+  margin: 0;
+
+  color: white;
+
+  font-size: 28px;
+  font-weight: 700;
+
+  letter-spacing: 0.5px;
+}
+
+.reset-body {
+  margin: 0;
+
+  color: #d5dbf0;
+
+  font-size: 18px;
+  line-height: 26px;
+}
+
+.reset-button-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
+.reset-cancel-button,
+.reset-confirm-button {
+  border: none;
+  cursor: pointer;
+
+  padding: 12px 20px;
+
+  border-radius: 12px;
+
+  font-size: 18px;
+  font-weight: 700;
+
+  color: white;
+
+  transition:
+    transform 0.12s ease,
+    opacity 0.12s ease;
+}
+
+.reset-cancel-button:hover,
+.reset-confirm-button:hover {
+  transform: translateY(-1px);
+}
+
+.reset-cancel-button:active,
+.reset-confirm-button:active {
+  transform: scale(0.97);
+}
+
+.reset-cancel-button {
+  background: #2a3142;
+
+  border: 2px solid #58627a;
+}
+
+.reset-confirm-button {
+  background: #8b2e3a;
+
+  border: 2px solid #c95a68;
+}

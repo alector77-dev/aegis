@@ -1,0 +1,198 @@
+.duel-page {
+  position: relative;
+
+  width: 100vw;
+  height: 100dvh;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      to bottom,
+      #02030a,
+      #10205a,
+      #4257c8,
+      #b8a8ff,
+      #6b80ff,
+      #3e56d6,
+      #9f8cff,
+      #5e74f2,
+      #3148c4,
+      #18307f,
+      #040612
+    );
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.duel-layout {
+  position: relative;
+  z-index: 2;
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+
+  padding: 12px 18px;
+  gap: 12px;
+}
+
+.player-section {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 12px;
+
+  min-width: 0;
+}
+
+.player-name {
+  width: min(190px, 90%);
+
+  padding: 10px 14px;
+
+  border-radius: 16px;
+  border: 2px solid;
+
+  background: rgba(15, 18, 28, 0.82);
+
+  color: white;
+
+  text-align: center;
+
+  font-size: 26px;
+  font-weight: 700;
+
+  outline: none;
+}
+
+.player-name.red {
+  border-color: #a94a4a;
+}
+
+.player-name.blue {
+  border-color: #537ddb;
+}
+
+.wheel-placeholder {
+  width: min(36vw, 340px);
+  aspect-ratio: 1;
+
+  border-radius: 50%;
+
+  background: rgba(10, 12, 18, 0.9);
+
+  border: 4px solid #777;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+
+  font-size: clamp(40px, 5vw, 72px);
+  font-weight: 700;
+}
+
+.center-controls {
+  width: clamp(140px, 16vw, 220px);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 14px;
+
+  flex-shrink: 0;
+}
+
+.button-row {
+  display: flex;
+  gap: 18px;
+}
+
+.control-button {
+  width: 82px;
+
+  padding: 14px 0;
+
+  border-radius: 14px;
+  border: 2px solid #58627a;
+
+  background: rgba(25, 30, 42, 0.96);
+
+  color: white;
+
+  font-size: 17px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.small-button {
+  width: 70px;
+  height: 70px;
+
+  border-radius: 50%;
+  border: 2px solid #58627a;
+
+  background: rgba(25, 30, 42, 0.96);
+
+  color: white;
+
+  font-size: 17px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.danger {
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+}
+
+.danger-left {
+  background:
+    linear-gradient(
+      to right,
+      rgba(120, 0, 0, 0.9),
+      rgba(255, 0, 0, 0.35),
+      transparent
+    );
+}
+
+.danger-right {
+  background:
+    linear-gradient(
+      to left,
+      rgba(120, 0, 0, 0.9),
+      rgba(255, 0, 0, 0.35),
+      transparent
+    );
+}
+
+@media (max-width: 900px), (max-height: 550px) {
+  .wheel-placeholder {
+    width: min(30vw, 260px);
+  }
+
+  .player-name {
+    font-size: 20px;
+  }
+
+  .center-controls {
+    transform: scale(0.9);
+  }
+}

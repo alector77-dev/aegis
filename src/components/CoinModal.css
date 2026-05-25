@@ -1,0 +1,98 @@
+.coin-modal {
+  width: 300px;
+  height: 300px;
+
+  background: #1a1f2b;
+
+  border-radius: 20px;
+
+  border: 2px solid #58627a;
+
+  box-shadow: 0 0 24px rgba(138, 160, 255, 0.25);
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  padding: 20px 24px;
+
+  gap: 12px;
+}
+
+.coin-image-container {
+  width: 180px;
+  height: 180px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.coin-image {
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  user-select: none;
+  pointer-events: none;
+}
+
+.coin-image.flipping {
+  animation: coin-spin 0.16s linear infinite;
+}
+
+@keyframes coin-spin {
+  from {
+    transform: rotateY(0deg);
+  }
+
+  to {
+    transform: rotateY(180deg);
+  }
+}
+
+.coin-result-text {
+  color: white;
+
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.coin-flip-button {
+  width: 100%;
+
+  background: #2a3142;
+
+  border: 2px solid #58627a;
+
+  border-radius: 16px;
+
+  padding: 18px 0;
+
+  color: white;
+
+  font-size: 24px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.12s ease,
+    opacity 0.12s ease;
+}
+
+.coin-flip-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.coin-flip-button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.coin-flip-button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}

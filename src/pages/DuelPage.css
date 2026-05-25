@@ -191,8 +191,4 @@
   .player-name {
     font-size: 20px;
   }
-
-  .center-controls {
-    transform: scale(0.9);
-  }
 }

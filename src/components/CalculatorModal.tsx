@@ -166,14 +166,12 @@ export default function CalculatorModal({
           <CalcButton label="5" onClick={handleCalculatorInput} />
           <CalcButton label="6" onClick={handleCalculatorInput} />
 
-          <div className="equals-button-container">
-            <button
-              className="calc-button equals-button"
-              onClick={() => handleCalculatorInput("=")}
-            >
-              =
-            </button>
-          </div>
+          <button
+            className="calc-button equals-button"
+            onClick={() => handleCalculatorInput("=")}
+          >
+            =
+          </button>
         </div>
 
         <div className="calculator-row">

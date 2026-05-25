@@ -149,16 +149,17 @@ export default function LPWheel({
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
       onPointerLeave={handlePointerUp}
-      style={{
-        
-      }}
+      style={{}}
     >
       {/* -100 BUTTON */}
 
       <button
         type="button"
         className={`adjust-button minus ${side}`}
-        onClick={() => {
+        onPointerDown={(e) => e.stopPropagation()}
+        onPointerUp={(e) => e.stopPropagation()}
+        onClick={(e) => {
+          e.stopPropagation();
           onLPCommit({
             type: "adjust",
             value: -100,
@@ -190,7 +191,10 @@ export default function LPWheel({
       <button
         type="button"
         className={`adjust-button plus ${side}`}
-        onClick={() => {
+        onPointerDown={(e) => e.stopPropagation()}
+        onPointerUp={(e) => e.stopPropagation()}
+        onClick={(e) => {
+          e.stopPropagation();
           onLPCommit({
             type: "adjust",
             value: 100,
@@ -293,15 +297,12 @@ export default function LPWheel({
 
         <g transform="translate(130 130)">
           {Array.from({ length: TOTAL_SEGMENTS }).map((_, index) => {
-            const angle =
-              (GAUGE_ARC / (TOTAL_SEGMENTS - 1)) * index + 285;
+            const angle = (GAUGE_ARC / (TOTAL_SEGMENTS - 1)) * index + 285;
 
             const visible = index < activeSegments;
 
             const color =
-              colors[
-                Math.floor((index / TOTAL_SEGMENTS) * colors.length)
-              ];
+              colors[Math.floor((index / TOTAL_SEGMENTS) * colors.length)];
 
             const overhealed = displayedLP > MAX_LP;
 
@@ -313,13 +314,7 @@ export default function LPWheel({
                   width="10"
                   height="18"
                   rx="3"
-                  fill={
-                    visible
-                      ? overhealed
-                        ? "#FF2200"
-                        : color
-                      : "#1A1F2B"
-                  }
+                  fill={visible ? (overhealed ? "#FF2200" : color) : "#1A1F2B"}
                 />
               </g>
             );
@@ -329,11 +324,7 @@ export default function LPWheel({
 
       {/* CENTER BUTTON */}
 
-      <button
-        type="button"
-        className="center-circle"
-        onClick={onPress}
-      >
+      <button type="button" className="center-circle" onClick={onPress}>
         <span className="lp-text">{displayedLP}</span>
       </button>
     </div>

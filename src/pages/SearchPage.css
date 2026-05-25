@@ -1,0 +1,182 @@
+.search-page {
+  width: 100vw;
+  min-height: 100dvh;
+
+  background:
+    linear-gradient(
+      to bottom,
+      #02030a,
+      #10205a,
+      #4257c8,
+      #b8a8ff,
+      #6b80ff,
+      #3e56d6,
+      #9f8cff,
+      #5e74f2,
+      #3148c4,
+      #18307f,
+      #040612
+    );
+
+  overflow-y: auto;
+}
+
+.search-container {
+  min-height: 100dvh;
+
+  padding-top: 48px;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-bottom: 32px;
+
+  box-sizing: border-box;
+}
+
+/* TOP BAR */
+
+.search-top-bar {
+  display: flex;
+  align-items: center;
+
+  gap: 16px;
+
+  margin-bottom: 24px;
+}
+
+.search-back-button {
+  width: 56px;
+  height: 56px;
+
+  border-radius: 16px;
+
+  border: 2px solid #58627a;
+
+  background: #1f2430;
+
+  color: white;
+
+  font-size: 28px;
+  font-weight: 700;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  box-shadow: 0 0 12px rgba(138, 160, 255, 0.2);
+
+  transition:
+    transform 0.12s ease,
+    background 0.12s ease;
+}
+
+.search-back-button:hover {
+  background: #2a3142;
+}
+
+.search-back-button:active {
+  transform: scale(0.96);
+}
+
+.search-input {
+  flex: 1;
+
+  height: 56px;
+
+  border-radius: 16px;
+
+  border: 2px solid #58627a;
+
+  background: rgba(15, 18, 28, 0.92);
+
+  padding: 0 20px;
+
+  color: white;
+
+  font-size: 20px;
+
+  outline: none;
+
+  box-shadow: 0 0 12px rgba(138, 160, 255, 0.15);
+}
+
+.search-input::placeholder {
+  color: #888;
+}
+
+/* RESULTS */
+
+.search-results {
+  display: flex;
+  flex-direction: column;
+
+  gap: 12px;
+}
+
+.search-card-row {
+  width: 100%;
+
+  background: rgba(20, 24, 36, 0.9);
+
+  border: 1px solid #4f5d75;
+
+  border-radius: 16px;
+
+  padding: 15px 20px;
+
+  color: white;
+
+  font-size: 20px;
+  font-weight: 600;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+
+  transition:
+    transform 0.12s ease,
+    background 0.12s ease;
+}
+
+.search-card-row:hover {
+  background: rgba(30, 35, 52, 0.95);
+}
+
+.search-card-row:active {
+  transform: scale(0.99);
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+  .search-container {
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 24px;
+  }
+
+  .search-top-bar {
+    gap: 12px;
+  }
+
+  .search-back-button {
+    width: 48px;
+    height: 48px;
+
+    font-size: 24px;
+  }
+
+  .search-input {
+    height: 48px;
+
+    font-size: 18px;
+  }
+
+  .search-card-row {
+    font-size: 18px;
+    padding: 14px 16px;
+  }
+}

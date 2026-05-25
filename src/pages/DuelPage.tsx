@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./DuelPage.css";
 import CalculatorModal from "../components/CalculatorModal";
 import LPWheel from "../components/LPWheel";
@@ -7,6 +8,29 @@ import ResetModal from "../components/ResetModal";
 import DuelLogModal from "../components/DuelLogModal";
 import CoinModal from "../components/CoinModal";
 import DiceModal from "../components/DiceModal";
+
+type DuelPageProps = {
+  player1LP: number;
+  setPlayer1LP: React.Dispatch<React.SetStateAction<number>>;
+
+  player2LP: number;
+  setPlayer2LP: React.Dispatch<React.SetStateAction<number>>;
+
+  displayedPlayer1LP: number;
+  setDisplayedPlayer1LP: React.Dispatch<React.SetStateAction<number>>;
+
+  displayedPlayer2LP: number;
+  setDisplayedPlayer2LP: React.Dispatch<React.SetStateAction<number>>;
+
+  player1Name: string;
+  setPlayer1Name: React.Dispatch<React.SetStateAction<string>>;
+
+  player2Name: string;
+  setPlayer2Name: React.Dispatch<React.SetStateAction<string>>;
+
+  duelLog: DuelLogEntry[];
+  setDuelLog: React.Dispatch<React.SetStateAction<DuelLogEntry[]>>;
+};
 
 type DuelLogEntry = {
   player: 1 | 2;
@@ -28,17 +52,29 @@ type LPAction = {
   applyChange?: boolean;
 };
 
-export default function DuelPage() {
-  const [player1LP, setPlayer1LP] = useState(8000);
-  const [player2LP, setPlayer2LP] = useState(8000);
+export default function DuelPage({
+  player1LP,
+  setPlayer1LP,
 
-  const [displayedPlayer1LP, setDisplayedPlayer1LP] = useState(8000);
-  const [displayedPlayer2LP, setDisplayedPlayer2LP] = useState(8000);
+  player2LP,
+  setPlayer2LP,
 
-  const [player1Name, setPlayer1Name] = useState("Player 1");
-  const [player2Name, setPlayer2Name] = useState("Player 2");
+  displayedPlayer1LP,
+  setDisplayedPlayer1LP,
 
-  const [selectedPlayer, setSelectedPlayer] = useState<number | null>(null);
+  displayedPlayer2LP,
+  setDisplayedPlayer2LP,
+
+  player1Name,
+  setPlayer1Name,
+
+  player2Name,
+  setPlayer2Name,
+
+  duelLog,
+  setDuelLog,
+}: DuelPageProps) {
+  const [selectedPlayer, setSelectedPlayer] = useState<1 | 2 | null>(null);
 
   const [calculatorVisible, setCalculatorVisible] = useState(false);
 
@@ -48,8 +84,6 @@ export default function DuelPage() {
     null,
   );
 
-  const [duelLog, setDuelLog] = useState<DuelLogEntry[]>([]);
-
   const [logVisible, setLogVisible] = useState(false);
 
   const [resetVisible, setResetVisible] = useState(false);
@@ -57,6 +91,8 @@ export default function DuelPage() {
   const [coinVisible, setCoinVisible] = useState(false);
 
   const [diceVisible, setDiceVisible] = useState(false);
+
+  const navigate = useNavigate();
 
   const player1Danger = 1 - displayedPlayer1LP / 8000;
   const player2Danger = 1 - displayedPlayer2LP / 8000;
@@ -99,16 +135,20 @@ export default function DuelPage() {
       const lastEntry = prev[prev.length - 1];
 
       const canMerge =
-        mergeWithPrevious && lastEntry && lastEntry.player === player;
+        mergeWithPrevious &&
+        lastEntry &&
+        !lastEntry.undone &&
+        lastEntry.player === player;
 
       if (canMerge) {
-        const updatedEntry: DuelLogEntry = {
-          ...lastEntry,
-          operator: newLP > lastEntry.previousLP ? "+" : "-",
-          newLP,
-        };
-
-        return [...prev.slice(0, -1), updatedEntry];
+        return [
+          ...prev.slice(0, -1),
+          {
+            ...lastEntry,
+            operator: newLP > lastEntry.previousLP ? "+" : "-",
+            newLP,
+          },
+        ];
       }
 
       let operator: "+" | "-" | "/2" = "+";
@@ -324,7 +364,12 @@ export default function DuelPage() {
               </button>
             </div>
 
-            <button className="control-button">Rulings</button>
+            <button
+              className="control-button"
+              onClick={() => navigate("/search")}
+            >
+              Rulings
+            </button>
           </div>
 
           {/* RIGHT PLAYER */}
@@ -361,7 +406,7 @@ export default function DuelPage() {
         <ModalBackdrop onClose={handleCalculatorClose}>
           <CalculatorModal
             currentLP={selectedPlayer === 1 ? player1LP : player2LP}
-            position={selectedPlayer as 1 | 2}
+            position={selectedPlayer}
             onClose={handleCalculatorClose}
             onSubmit={(currentDisplayLP, { type, value }) => {
               let newLP = currentDisplayLP;
@@ -381,7 +426,7 @@ export default function DuelPage() {
               setPendingLP(newLP);
 
               applyLPAction({
-                player: selectedPlayer as 1 | 2,
+                player: selectedPlayer,
                 playerLP: currentDisplayLP,
                 type: "set",
                 value: newLP,

@@ -151,6 +151,34 @@
   border: 2px solid;
 }
 
+.ruling-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 10px;
+}
+
+.ruling-link {
+  color: #d7dcff;
+
+  text-decoration: none;
+
+  font-size: 20px;
+  font-weight: 700;
+
+  opacity: 0.82;
+
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease;
+}
+
+.ruling-link:hover {
+  opacity: 1;
+  transform: scale(1.08);
+}
+
 .net-ruling {
   background: rgba(18, 52, 36, 0.92);
   border-color: #4FA978;

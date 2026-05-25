@@ -23,6 +23,10 @@ type Card = {
 
 const cards = cardsData as Card[];
 
+const hasModernPSCT = (card?: Card) =>
+  !!card?.edisonNetText &&
+  card.edisonNetText !== "No modernized PSCT available.";
+
 type SectionProps = {
   title: string;
   open: boolean;
@@ -30,32 +34,16 @@ type SectionProps = {
   children: React.ReactNode;
 };
 
-function Section({
-  title,
-  open,
-  setOpen,
-  children,
-}: SectionProps) {
+function Section({ title, open, setOpen, children }: SectionProps) {
   return (
     <div className="section">
-      <button
-        className="section-header"
-        onClick={() => setOpen(!open)}
-      >
-        <span className="section-arrow">
-          {open ? "▼" : "▶"}
-        </span>
+      <button className="section-header" onClick={() => setOpen(!open)}>
+        <span className="section-arrow">{open ? "▼" : "▶"}</span>
 
-        <span className="section-title">
-          {title}
-        </span>
+        <span className="section-title">{title}</span>
       </button>
 
-      {open && (
-        <div className="section-content">
-          {children}
-        </div>
-      )}
+      {open && <div className="section-content">{children}</div>}
     </div>
   );
 }
@@ -66,32 +54,55 @@ export default function CardPage() {
   const navigate = useNavigate();
 
   const card = useMemo(() => {
-    return cards.find(
-      (c) => c.id.toString() === id,
-    );
+    return cards.find((c) => c.id.toString() === id);
   }, [id]);
 
-  const [edisonOpen, setEdisonOpen] = useState(true);
+  const [edisonOpen, setEdisonOpen] = useState(!!card?.edisonText);
 
-  const [netTextOpen, setNetTextOpen] = useState(
-    !!card?.edisonNetText &&
-      card.edisonNetText !==
-        "No modernized PSCT available.",
-  );
+  const [netTextOpen, setNetTextOpen] = useState(false);
 
-  const [rulingsOpen, setRulingsOpen] = useState(true);
+  const [rulingsOpen, setRulingsOpen] = useState(false);
 
-  const [currentOpen, setCurrentOpen] =
-    useState(false);
+  const [currentOpen, setCurrentOpen] = useState(false);
 
   if (!card) {
     return (
       <div className="card-page not-found-page">
-        <div className="not-found-text">
-          Card not found.
-        </div>
+        <div className="not-found-text">Card not found.</div>
       </div>
     );
+  }
+
+  function getEdisonComLink(cardName: string) {
+    const first = cardName[0].toUpperCase();
+
+    let base: string;
+
+    if ("ABC".includes(first)) {
+      base = "https://www.edisonformat.com/rulings/individual-rulings-a-c";
+    } else if ("DE".includes(first)) {
+      base = "https://www.edisonformat.com/rulings/individual-rulings-d-e";
+    } else if ("FGH".includes(first)) {
+      base = "https://www.edisonformat.com/rulings/individual-rulings-f-h";
+    } else if ("IJK".includes(first)) {
+      base = "https://www.edisonformat.com/rulings/individual-rulings-i-k";
+    } else if ("LMNO".includes(first)) {
+      base = "https://www.edisonformat.com/rulings/individual-rulings-l-o";
+    } else if ("PQR".includes(first)) {
+      base = "https://www.edisonformat.com/rulings/individual-card-rulings-p-r";
+    } else if ("ST".includes(first)) {
+      base = "https://www.edisonformat.com/rulings/individual-card-rulings-s-t";
+    } else if ("WXYZ".includes(first)) {
+      base = "https://www.edisonformat.com/rulings/rules-u-z";
+    } else {
+      base = "https://www.edisonformat.com/rulings/individual-rulings-a-c";
+    }
+
+    const fragment = `#:~:text=.-,${encodeURIComponent(
+      cardName.toUpperCase(),
+    )}`;
+
+    return `${base}${fragment}`;
   }
 
   return (
@@ -99,19 +110,14 @@ export default function CardPage() {
       <div className="card-page-container">
         {/* BACK BUTTON */}
 
-        <button
-          className="back-button"
-          onClick={() => navigate(-1)}
-        >
+        <button className="back-button" onClick={() => navigate(-1)}>
           ←
         </button>
 
         {/* TITLE */}
 
         <div className="title-card">
-          <h1 className="card-name">
-            {card.name}
-          </h1>
+          <h1 className="card-name">{card.name}</h1>
         </div>
 
         {/* EDISON TEXT */}
@@ -123,73 +129,70 @@ export default function CardPage() {
             setOpen={setEdisonOpen}
           >
             <div className="content-card">
-              <p className="body-text">
-                {card.edisonText}
-              </p>
+              <p className="body-text">{card.edisonText}</p>
             </div>
           </Section>
         )}
 
         {/* MODERNIZED */}
 
-        {!!card.edisonNetText && (
+        {hasModernPSCT(card) && (
           <Section
             title="Modernized Edison PSCT"
             open={netTextOpen}
             setOpen={setNetTextOpen}
           >
             <div className="content-card">
-              <p className="body-text">
-                {card.edisonNetText}
-              </p>
+              <p className="body-text">{card.edisonNetText}</p>
             </div>
           </Section>
         )}
 
         {/* RULINGS */}
 
-        {(card.edisonComRulings ||
-          card.edisonNetRulings) && (
-          <Section
-            title="Rulings"
-            open={rulingsOpen}
-            setOpen={setRulingsOpen}
-          >
+        {(card.edisonComRulings || card.edisonNetRulings) && (
+          <Section title="Rulings" open={rulingsOpen} setOpen={setRulingsOpen}>
             {!!card.edisonNetRulings &&
-              card.edisonNetRulings.map(
-                (ruling, index) => (
-                  <div
-                    key={`net-${index}`}
-                    className="ruling-card net-ruling"
-                  >
-                    <div className="ruling-source">
-                      EdisonFormat.net
-                    </div>
+              card.edisonNetRulings.map((ruling, index) => (
+                <div key={`net-${index}`} className="ruling-card net-ruling">
+                  <div className="ruling-header">
+                    <div className="ruling-source">EdisonFormat.net</div>
 
-                    <p className="body-text">
-                      {ruling}
-                    </p>
+                    <a
+                      className="ruling-link"
+                      href={`https://edisonformat.net/card?name=${encodeURIComponent(
+                        card.name,
+                      )}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      ↗
+                    </a>
                   </div>
-                ),
-              )}
+
+                  <p className="body-text">{ruling}</p>
+                </div>
+              ))}
 
             {!!card.edisonComRulings &&
-              card.edisonComRulings.map(
-                (ruling, index) => (
-                  <div
-                    key={`com-${index}`}
-                    className="ruling-card com-ruling"
-                  >
-                    <div className="ruling-source">
-                      EdisonFormat.com
-                    </div>
+              card.edisonComRulings.map((ruling, index) => (
+                <div key={`com-${index}`} className="ruling-card com-ruling">
+                  <div className="ruling-header">
+                    <div className="ruling-source">EdisonFormat.com</div>
 
-                    <p className="body-text">
-                      {ruling}
-                    </p>
+                    <a
+                      className="ruling-link"
+                      href={getEdisonComLink(card.name)}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      ↗
+                    </a>
                   </div>
-                ),
-              )}
+
+                  <p className="body-text">{ruling}</p>
+                </div>
+              ))}
           </Section>
         )}
 
@@ -202,9 +205,7 @@ export default function CardPage() {
             setOpen={setCurrentOpen}
           >
             <div className="content-card">
-              <p className="body-text">
-                {card.currentText}
-              </p>
+              <p className="body-text">{card.currentText}</p>
             </div>
           </Section>
         )}
@@ -214,7 +215,7 @@ export default function CardPage() {
         <div className="links-container">
           <a
             className="link-button"
-            href="https://www.edisonformat.com/"
+            href={getEdisonComLink(card.name)}
             target="_blank"
             rel="noreferrer"
           >

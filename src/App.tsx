@@ -3,7 +3,7 @@ import DuelPage from "./pages/DuelPage";
 import SearchPage from "./pages/SearchPage";
 import { useState } from "react";
 import type { DuelLogEntry } from "./components/DuelLogModal";
-//import CardPage from "./pages/CardPage";
+import CardPage from "./pages/CardPage";
 
 export default function App() {
   const [player1LP, setPlayer1LP] = useState(8000);
@@ -40,6 +40,7 @@ export default function App() {
         }
       />
       <Route path="/search" element={<SearchPage />} />
+      <Route path="/card/:id" element={<CardPage />} />
     </Routes>
   );
 }

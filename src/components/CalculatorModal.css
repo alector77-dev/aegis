@@ -1,8 +1,3 @@
-.calculator-modal-wrapper {
-  position: absolute;
-  inset: 0;
-}
-
 .calculator-overlay {
   position: absolute;
   top: 3%;
@@ -128,15 +123,12 @@
   transform: scale(0.96);
 }
 
-.equals-button-container {
+.equals-button {
   position: absolute;
 
   right: 0;
   top: 0;
 
-  height: 216px;
-}
-
-.equals-button {
+  width: 64px;
   height: 216px;
 }

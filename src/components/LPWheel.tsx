@@ -150,7 +150,7 @@ export default function LPWheel({
       onPointerUp={handlePointerUp}
       onPointerLeave={handlePointerUp}
       style={{
-        boxShadow: `0 0 30px ${borderColour}55`,
+        
       }}
     >
       {/* -100 BUTTON */}

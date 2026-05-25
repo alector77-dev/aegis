@@ -22,11 +22,7 @@ type CalcButtonProps = {
   onClick: (label: string) => void;
 };
 
-function CalcButton({
-  label,
-  className = "",
-  onClick,
-}: CalcButtonProps) {
+function CalcButton({ label, className = "", onClick }: CalcButtonProps) {
   return (
     <button
       className={`calc-button ${className}`}
@@ -109,9 +105,7 @@ export default function CalculatorModal({
       const resultLP = onSubmit(displayLP, {
         type: calculatorOperator,
         value:
-          calculatorOperator === "/2"
-            ? undefined
-            : Number(calculatorValue),
+          calculatorOperator === "/2" ? undefined : Number(calculatorValue),
       });
 
       setDisplayLP(resultLP);
@@ -137,66 +131,63 @@ export default function CalculatorModal({
 
   return (
     <div
-      className="calculator-modal-wrapper"
-      onClick={(e) => e.stopPropagation()}
+      className={`calculator-overlay ${
+        position === 1 ? "calculator-left" : "calculator-right"
+      }`}
     >
-      <div
-        className={`calculator-overlay ${
-          position === 1 ? "calculator-left" : "calculator-right"
-        }`}
-      >
-        <div className="calculator-top-row">
-          <button className="back-button" onClick={onClose}>
-            ←
-          </button>
+      <div className="calculator-top-row">
+        <button className="back-button" onClick={onClose}>
+          ←
+        </button>
 
-          <button
-            className="display-container"
-            onClick={commitGhostZeros}
-          >
-            <div className="display-text">
-              {displayLP}
-              {calculatorOperator ?? ""}
-              {calculatorValue}
+        <button className="display-container" onClick={commitGhostZeros}>
+          <div className="display-text">
+            {displayLP}
+            {calculatorOperator ?? ""}
+            {calculatorValue}
 
-              <span className="ghost-text">{ghostZeros}</span>
-            </div>
-          </button>
+            <span className="ghost-text">{ghostZeros}</span>
+          </div>
+        </button>
+      </div>
+
+      <div className="calculator-grid">
+        <div className="calculator-row">
+          <CalcButton label="CLR" onClick={handleCalculatorInput} />
+          <CalcButton label="7" onClick={handleCalculatorInput} />
+          <CalcButton label="8" onClick={handleCalculatorInput} />
+          <CalcButton label="9" onClick={handleCalculatorInput} />
+          <CalcButton label="⌫" onClick={handleCalculatorInput} />
         </div>
 
-        <div className="calculator-grid">
-          <div className="calculator-row">
-            <CalcButton label="CLR" onClick={handleCalculatorInput}/>
-            <CalcButton label="7" onClick={handleCalculatorInput}/>
-            <CalcButton label="8" onClick={handleCalculatorInput}/>
-            <CalcButton label="9" onClick={handleCalculatorInput}/>
-            <CalcButton label="⌫" onClick={handleCalculatorInput}/>
-          </div>
+        <div className="calculator-row">
+          <CalcButton label="+" onClick={handleCalculatorInput} />
+          <CalcButton label="4" onClick={handleCalculatorInput} />
+          <CalcButton label="5" onClick={handleCalculatorInput} />
+          <CalcButton label="6" onClick={handleCalculatorInput} />
 
-          <div className="calculator-row">
-            <CalcButton label="+" onClick={handleCalculatorInput}/>
-            <CalcButton label="4" onClick={handleCalculatorInput}/>
-            <CalcButton label="5" onClick={handleCalculatorInput}/>
-            <CalcButton label="6" onClick={handleCalculatorInput}/>
-
-            <div className="equals-button-container">
-              <CalcButton label="=" className="equals-button" onClick={handleCalculatorInput}/>
-            </div>
+          <div className="equals-button-container">
+            <button
+              className="calc-button equals-button"
+              onClick={() => handleCalculatorInput("=")}
+            >
+              =
+            </button>
           </div>
+        </div>
 
-          <div className="calculator-row">
-            <CalcButton label="-" onClick={handleCalculatorInput}/>
-            <CalcButton label="1" onClick={handleCalculatorInput}/>
-            <CalcButton label="2" onClick={handleCalculatorInput}/>
-            <CalcButton label="3" onClick={handleCalculatorInput}/>
-          </div>
+        <div className="calculator-row">
+          <CalcButton label="-" onClick={handleCalculatorInput} />
+          <CalcButton label="1" onClick={handleCalculatorInput} />
+          <CalcButton label="2" onClick={handleCalculatorInput} />
+          <CalcButton label="3" onClick={handleCalculatorInput} />
+        </div>
 
-          <div className="calculator-row">
-            <CalcButton label="½" onClick={handleCalculatorInput}/>
-            <CalcButton label="0" onClick={handleCalculatorInput}/>
-            <CalcButton label="00" onClick={handleCalculatorInput}/>
-            <CalcButton label="000" onClick={handleCalculatorInput}/>
-          </div>
+        <div className="calculator-row">
+          <CalcButton label="½" onClick={handleCalculatorInput} />
+          <CalcButton label="0" onClick={handleCalculatorInput} />
+          <CalcButton label="00" onClick={handleCalculatorInput} />
+          <CalcButton label="000" onClick={handleCalculatorInput} />
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@
   position: absolute;
   top: 1%;
 
-  width: 400px;
+  width: 378px;
 
   background: #1a1f2b;
 
@@ -14,7 +14,7 @@
   padding: 10px 10px 4px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 0px;
 
   user-select: none;
 }
@@ -29,8 +29,9 @@
 
 .calculator-top-row {
   display: flex;
-  gap: 8px;
-  align-items: center;
+  gap: 4px;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
 .back-button {
@@ -50,9 +51,8 @@
 }
 
 .display-container {
-  flex: 1;
-
   min-height: 48px;
+  width: 290px;
 
   background: #0f1422;
 
@@ -65,6 +65,7 @@
   align-items: center;
 
   cursor: pointer;
+  
 }
 
 .display-text {

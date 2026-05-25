@@ -75,30 +75,39 @@ export default function DuelPage({
   setDuelLog,
 }: DuelPageProps) {
   useEffect(() => {
-  const forceViewportRefresh = () => {
-    const root = document.documentElement;
+    let scrollFixTimeout: ReturnType<typeof setTimeout>;
 
-    root.style.width = "99.9%";
+    const forceViewportRefresh = () => {
+      clearTimeout(scrollFixTimeout);
 
-    requestAnimationFrame(() => {
-      root.style.width = "100%";
-    });
-  };
+      scrollFixTimeout = setTimeout(() => {
+        // Force a real layout recalculation by temporarily adjusting scroll
+        window.scrollTo(0, 1);
+        window.scrollTo(0, 0);
 
-  window.addEventListener(
-    "orientationchange",
-    forceViewportRefresh,
-  );
+        // If visualViewport is available, explicitly sync the height
+        if (window.visualViewport) {
+          document.documentElement.style.height =
+            window.visualViewport.height + "px";
+          document.body.style.height = window.visualViewport.height + "px";
+        }
+      }, 300);
+    };
 
-  setTimeout(forceViewportRefresh, 300);
+    window.addEventListener("orientationchange", forceViewportRefresh);
+    window.addEventListener("resize", forceViewportRefresh);
+    window.visualViewport?.addEventListener("resize", forceViewportRefresh);
 
-  return () => {
-    window.removeEventListener(
-      "orientationchange",
-      forceViewportRefresh,
-    );
-  };
-}, []);
+    return () => {
+      clearTimeout(scrollFixTimeout);
+      window.removeEventListener("orientationchange", forceViewportRefresh);
+      window.removeEventListener("resize", forceViewportRefresh);
+      window.visualViewport?.removeEventListener(
+        "resize",
+        forceViewportRefresh,
+      );
+    };
+  }, []);
 
   const [selectedPlayer, setSelectedPlayer] = useState<1 | 2 | null>(null);
 

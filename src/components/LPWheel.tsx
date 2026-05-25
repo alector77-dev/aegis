@@ -47,6 +47,7 @@ export default function LPWheel({
   const lastSegment = useRef<number | null>(null);
   const dragStartLP = useRef(lp);
   const dragging = useRef(false);
+  const movedDuringDrag = useRef(false);
 
   const activeSegments = Math.min(
     Math.ceil((displayedLP / MAX_LP) * TOTAL_SEGMENTS),
@@ -79,6 +80,7 @@ export default function LPWheel({
 
   function handlePointerDown(e: React.PointerEvent<HTMLDivElement>) {
     dragging.current = true;
+    movedDuringDrag.current = false;
 
     const rect = e.currentTarget.getBoundingClientRect();
 
@@ -98,7 +100,7 @@ export default function LPWheel({
     if (!dragging.current) {
       return;
     }
-
+    movedDuringDrag.current = true;
     const rect = e.currentTarget.getBoundingClientRect();
 
     const x = e.clientX - rect.left;
@@ -140,6 +142,10 @@ export default function LPWheel({
       type: "set",
       value: displayedLP,
     });
+    
+    setTimeout(() => {
+      movedDuringDrag.current = false;
+    }, 0);
   }
 
   return (
@@ -324,7 +330,18 @@ export default function LPWheel({
 
       {/* CENTER BUTTON */}
 
-      <button type="button" className="center-circle" onClick={onPress}>
+      <button
+        type="button"
+        className="center-circle"
+        onClick={(e) => {
+          if (movedDuringDrag.current) {
+            e.preventDefault();
+            return;
+          }
+
+          onPress();
+        }}
+      >
         <span className="lp-text">{displayedLP}</span>
       </button>
     </div>

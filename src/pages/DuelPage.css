@@ -1,27 +1,25 @@
 .duel-page {
   position: relative;
 
-  width: 100vw;
-  min-height: 100vh;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
 
   overflow: hidden;
 
-  background:
-    linear-gradient(
-      to bottom,
-      #02030a,
-      #10205a,
-      #4257c8,
-      #b8a8ff,
-      #6b80ff,
-      #3e56d6,
-      #9f8cff,
-      #5e74f2,
-      #3148c4,
-      #18307f,
-      #040612
-    );
+  background: linear-gradient(
+    to bottom,
+    #02030a,
+    #10205a,
+    #4257c8,
+    #b8a8ff,
+    #6b80ff,
+    #3e56d6,
+    #9f8cff,
+    #5e74f2,
+    #3148c4,
+    #18307f,
+    #040612
+  );
 
   display: flex;
   align-items: center;
@@ -165,23 +163,21 @@
 }
 
 .danger-left {
-  background:
-    linear-gradient(
-      to right,
-      rgba(120, 0, 0, 0.9),
-      rgba(255, 0, 0, 0.35),
-      transparent
-    );
+  background: linear-gradient(
+    to right,
+    rgba(120, 0, 0, 0.9),
+    rgba(255, 0, 0, 0.35),
+    transparent
+  );
 }
 
 .danger-right {
-  background:
-    linear-gradient(
-      to left,
-      rgba(120, 0, 0, 0.9),
-      rgba(255, 0, 0, 0.35),
-      transparent
-    );
+  background: linear-gradient(
+    to left,
+    rgba(120, 0, 0, 0.9),
+    rgba(255, 0, 0, 0.35),
+    transparent
+  );
 }
 
 @media (max-width: 900px), (max-height: 550px) {

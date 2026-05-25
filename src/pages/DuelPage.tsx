@@ -75,26 +75,31 @@ export default function DuelPage({
   setDuelLog,
 }: DuelPageProps) {
   useEffect(() => {
-    const handleResize = () => {
-      document.body.style.display = "none";
+  const forceViewportRefresh = () => {
+    const root = document.documentElement;
 
-      void document.body.offsetHeight;
+    root.style.width = "99.9%";
 
-      document.body.style.display = "";
-    };
+    requestAnimationFrame(() => {
+      root.style.width = "100%";
+    });
+  };
 
-    window.addEventListener("resize", handleResize);
-    window.addEventListener("orientationchange", handleResize);
+  window.addEventListener(
+    "orientationchange",
+    forceViewportRefresh,
+  );
 
-    // also run once shortly after mount
-    setTimeout(handleResize, 100);
+  setTimeout(forceViewportRefresh, 300);
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("orientationchange", handleResize);
-    };
-  }, []);
-  
+  return () => {
+    window.removeEventListener(
+      "orientationchange",
+      forceViewportRefresh,
+    );
+  };
+}, []);
+
   const [selectedPlayer, setSelectedPlayer] = useState<1 | 2 | null>(null);
 
   const [calculatorVisible, setCalculatorVisible] = useState(false);

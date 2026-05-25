@@ -33,3 +33,9 @@ body {
 
   user-select: none;
 }
+
+/* TEMP DEBUG */
+
+* {
+  transform: none !important;
+}

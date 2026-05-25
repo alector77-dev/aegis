@@ -89,11 +89,11 @@
 }
 
 .dice-roll-button:hover:not(:disabled) {
-  transform: translateY(-1px);
+  opacity: 0.92;
 }
 
 .dice-roll-button:active:not(:disabled) {
-  transform: scale(0.98);
+  opacity: 0.8;
 }
 
 .dice-roll-button:disabled {

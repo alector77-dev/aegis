@@ -156,6 +156,10 @@ export default function DuelPage({
       newLP = Math.ceil(newLP / 2);
     }
 
+    if (newLP === currentLP && type !== "half") {
+      return;
+    }
+
     if (applyChange) {
       if (player === 1) {
         setPlayer1LP(newLP);

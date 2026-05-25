@@ -14,8 +14,6 @@ body,
   overflow: hidden;
 
   background: #02030a;
-
-  touch-action: manipulation;
 }
 
 * {

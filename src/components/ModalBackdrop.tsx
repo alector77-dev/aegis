@@ -1,3 +1,5 @@
+import "./ModalBackdrop.css";
+
 type Props = {
   children: React.ReactNode;
   onClose: () => void;

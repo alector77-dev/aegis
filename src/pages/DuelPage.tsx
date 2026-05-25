@@ -235,124 +235,126 @@ export default function DuelPage() {
   }
 
   return (
-    <div className="duel-page">
-      {/* Background gradients */}
+    <>
+      <div className="duel-page">
+        {/* Background gradients */}
 
-      <div
-        className="danger danger-left"
-        style={{
-          opacity: player1Danger,
-        }}
-      />
+        <div
+          className="danger danger-left"
+          style={{
+            opacity: player1Danger,
+          }}
+        />
 
-      <div
-        className="danger danger-right"
-        style={{
-          opacity: player2Danger,
-        }}
-      />
+        <div
+          className="danger danger-right"
+          style={{
+            opacity: player2Danger,
+          }}
+        />
 
-      {/* Main layout */}
+        {/* Main layout */}
 
-      <div className="duel-layout">
-        {/* LEFT PLAYER */}
+        <div className="duel-layout">
+          {/* LEFT PLAYER */}
 
-        <div className="player-section">
-          <input
-            className="player-name red"
-            value={player1Name}
-            onChange={(e) => setPlayer1Name(e.target.value)}
-          />
+          <div className="player-section">
+            <input
+              className="player-name red"
+              value={player1Name}
+              onChange={(e) => setPlayer1Name(e.target.value)}
+            />
 
-          <LPWheel
-            lp={player1LP}
-            displayedLP={displayedPlayer1LP}
-            setDisplayedLP={setDisplayedPlayer1LP}
-            borderColour="#D83A3A"
-            side="left"
-            onPress={() => {
-              setSelectedPlayer(1);
-              setCalculatorStartLP(player1LP);
-              setCalculatorVisible(true);
-            }}
-            onLPCommit={(action) => {
-              applyLPAction({
-                player: 1,
-                ...action,
-              });
-            }}
-          />
-        </div>
+            <LPWheel
+              lp={player1LP}
+              displayedLP={displayedPlayer1LP}
+              setDisplayedLP={setDisplayedPlayer1LP}
+              borderColour="#D83A3A"
+              side="left"
+              onPress={() => {
+                setSelectedPlayer(1);
+                setCalculatorStartLP(player1LP);
+                setCalculatorVisible(true);
+              }}
+              onLPCommit={(action) => {
+                applyLPAction({
+                  player: 1,
+                  ...action,
+                });
+              }}
+            />
+          </div>
 
-        {/* CENTER */}
+          {/* CENTER */}
 
-        <div className="center-controls">
-          <div className="button-row">
+          <div className="center-controls">
+            <div className="button-row">
+              <button
+                className="control-button"
+                onClick={() => setResetVisible(true)}
+              >
+                Reset
+              </button>
+
+              <button className="control-button" onClick={handleUndo}>
+                Undo
+              </button>
+            </div>
+
             <button
               className="control-button"
-              onClick={() => setResetVisible(true)}
+              onClick={() => setLogVisible(true)}
             >
-              Reset
+              Log
             </button>
 
-            <button className="control-button" onClick={handleUndo}>
-              Undo
-            </button>
+            <div className="button-row">
+              <button
+                className="small-button"
+                onClick={() => setDiceVisible(true)}
+              >
+                Dice
+              </button>
+
+              <button
+                className="small-button"
+                onClick={() => setCoinVisible(true)}
+              >
+                Coin
+              </button>
+            </div>
+
+            <button className="control-button">Rulings</button>
           </div>
 
-          <button
-            className="control-button"
-            onClick={() => setLogVisible(true)}
-          >
-            Log
-          </button>
+          {/* RIGHT PLAYER */}
 
-          <div className="button-row">
-            <button
-              className="small-button"
-              onClick={() => setDiceVisible(true)}
-            >
-              Dice
-            </button>
+          <div className="player-section">
+            <input
+              className="player-name blue"
+              value={player2Name}
+              onChange={(e) => setPlayer2Name(e.target.value)}
+            />
 
-            <button
-              className="small-button"
-              onClick={() => setCoinVisible(true)}
-            >
-              Coin
-            </button>
+            <LPWheel
+              lp={player2LP}
+              displayedLP={displayedPlayer2LP}
+              setDisplayedLP={setDisplayedPlayer2LP}
+              borderColour="#3A6FD8"
+              side="right"
+              onPress={() => {
+                setSelectedPlayer(2);
+                setCalculatorStartLP(player2LP);
+                setCalculatorVisible(true);
+              }}
+              onLPCommit={(action) => {
+                applyLPAction({
+                  player: 2,
+                  ...action,
+                });
+              }}
+            />
           </div>
-
-          <button className="control-button">Rulings</button>
-        </div>
-
-        {/* RIGHT PLAYER */}
-
-        <div className="player-section">
-          <input
-            className="player-name blue"
-            value={player2Name}
-            onChange={(e) => setPlayer2Name(e.target.value)}
-          />
-
-          <LPWheel
-            lp={player2LP}
-            displayedLP={displayedPlayer2LP}
-            setDisplayedLP={setDisplayedPlayer2LP}
-            borderColour="#3A6FD8"
-            side="right"
-            onPress={() => {
-              setSelectedPlayer(2);
-              setCalculatorStartLP(player2LP);
-              setCalculatorVisible(true);
-            }}
-            onLPCommit={(action) => {
-              applyLPAction({
-                player: 2,
-                ...action,
-              });
-            }}
-          />
         </div>
       </div>
       {calculatorVisible && selectedPlayer !== null && (
@@ -421,6 +423,6 @@ export default function DuelPage() {
           <DiceModal />
         </ModalBackdrop>
       )}
-    </div>
+    </>
   );
 }
